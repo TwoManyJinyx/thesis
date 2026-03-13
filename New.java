@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class New {
 
+
+    // class for displaying the first three options
     public static void firstoptions(String[] args){
         System.out.println("*************************************************");
         System.out.println("Welcome to the Inventory Management Library!");
@@ -13,22 +15,21 @@ public class New {
         System.out.println("Please Select an Option: ");
     }
 
+
+    // creating the library and its contents
     static class Library{
-        String name;
-        ArrayList<String> contents;
+        String name;                    // for naming the library
+        ArrayList<String> contents;     // for putting contents on the library
 
     }
 
-
-
-
-
+    // main class
     public static void main(String[] args) {
         // Scanner
         Scanner myScanner = new Scanner(System.in);
 
         // ArrayList for the library
-        ArrayList<String> Library = new ArrayList<>();
+        ArrayList<String> Library = new ArrayList<>();  // the libraries it self
 
         // variables
         int choice;
@@ -36,8 +37,8 @@ public class New {
 
         // main category loop
         while(true) {
-            firstoptions(args);
-            choice = myScanner.nextInt();
+            firstoptions(args);             // displaying the mentioned before first options
+            choice = myScanner.nextInt();   // Scanner, for putting in the choice (ps. pwede na siya isama sa firstoption class, but idk... you decide if you want to put this line on the class aswell :> )
 
 
             // choices
