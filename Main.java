@@ -30,10 +30,10 @@ public class Main {
         // displaying the content (for later in option 2, sub option 1)
         public void displayContents() {
             System.out.println("Contents of " + name + ": ");
-            for (String item : contents) {
-                System.out.println("- " + item);
-            }
+            for (int i = 0; i < contents.size(); i++) {
+            System.out.println((i + 1) + ". " + contents.get(i));
         }
+} 
         
     }
 
@@ -77,25 +77,115 @@ public class Main {
                 System.out.print("Library '" + name + "' created successfully!\n");
                 
             } 
+
             else if (options == 2) {
                 while(true) {
                     for (int i = 0; i < libraries.size(); i++) {
                         System.out.println((i + 1) + ". " + libraries.get(i).name);
                     }
-                    System.out.println("Select a library [type / to go back]: ");
+                    System.out.print("Select a library [type 0 to go back]: ");
                     int choice = myScanner.nextInt();
                     
-                    
-                    if (choice == 1) {
-                        System.out.print("Test");
+                    if (choice == 0) {
+                        break;
                     }
-                    
+                    else if (choice >= 1 && choice <= libraries.size()) {
+                        Library selectedLibrary = libraries.get(choice - 1);
+                        System.out.println("Selected: " + selectedLibrary.name);
+
+                        while (true) {
+                            selectedLibrary.displayContents();
+                            System.out.println("********************************************"); 
+                            System.out.println("[1] - Add new content\n[2] - Modify a existing content\n[3] - Delete a existing content\n[4] - Rename the selected library\n[5] - Delete the selected library\n[6] - Back");
+                            System.out.println("********************************************");
+                            System.out.print("What would you like to do in the selected library?: ");
+                            int choice2 = myScanner.nextInt();
+                            myScanner.nextLine();
+                            
+
+                            if (choice2 == 1) {
+                                while (true) { 
+                                    System.out.print("Enter the contents of your library: (Type 1 to finish adding your contents): ");
+                                    String contents = myScanner.nextLine();
+                                    
+                                    if (contents.equalsIgnoreCase("1")) {
+                                        break;
+                                    }
+
+                                    selectedLibrary.addContent(contents);    
+                                }
+                            } else if (choice2 == 2) {
+                                if (selectedLibrary.contents.size() == 0) {
+                                    System.out.println("This library is empty. Add a content on it first!");
+                                } else {
+                                    selectedLibrary.displayContents();
+
+                                    System.out.print("Enter the number of the content you want to modify: ");
+                                    int modifyNum = myScanner.nextInt();
+                                    myScanner.nextLine();
+
+                                    if (modifyNum >= 1 && modifyNum <= selectedLibrary.contents.size()) {
+                                        System.out.print("Enter the new name for the modified content: ");
+                                        String newName = myScanner.nextLine();
+
+                                        selectedLibrary.contents.set(modifyNum - 1, newName);
+
+                                        System.out.println("Content Succesfully Modified!");
+                                    } else {
+                                        System.out.println("Invalid Input. Please Try Again...");
+                                    }
+                                }
+                            } else if (choice2 == 3) {
+                                if (selectedLibrary.contents.size() == 0) {
+                                    System.out.println("This library is empty. Add a content on it first!");
+                                } else {
+                                    selectedLibrary.displayContents();
+
+                                    System.out.print("Enter the number of the content you want to modify: ");
+                                    int modifyNum = myScanner.nextInt();
+                                    myScanner.nextLine();
+
+                                    selectedLibrary.contents.remove(modifyNum - 1);
+
+                                    System.out.println("Content Succesfully Removed!");
+                                }
+                            } else if (choice2 == 4) {
+                                System.out.print("Enter new name for the library: ");
+                                String newName = myScanner.nextLine();
+
+                                selectedLibrary.name = newName;
+
+                                System.out.println("Library renamed successfully!");
+                                
+                            } else if (choice2 == 5) {
+                                System.out.print("Are you sure you want to delete this library? (yes/no): ");
+                                String confirm = myScanner.nextLine();
+
+                                if (confirm.equalsIgnoreCase("yes")) {
+                                libraries.remove(selectedLibrary);
+                                System.out.println("Library deleted successfully!");
+                                break; 
+                                } else {
+                                    System.out.println("Deletion cancelled.");
+                                }
+                                
+                            } else if (choice2 == 6) {
+                                break;  
+                            } else {
+                                System.out.println("Invalid Input. Please try again.");
+                            }
+                        }
+
+                        
+                    }
+                    else {
+                        System.out.println("Invalid Input. Please Try Again...");
+                    }
+
                 }
             }
             
-            
-            
-            //exit anytime
+            // main exit
             else if (options == 3){
                 System.exit(0);
             } else {
